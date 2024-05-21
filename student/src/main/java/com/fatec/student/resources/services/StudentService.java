@@ -38,4 +38,15 @@ public class StudentService {
         return this.studentRepositoriry.save(student);
     }
 
+    public void update (int id, Student student){
+        try {
+            Student aux = studentRepositoriry.getReferenceById(id);
+            aux.setName(student.getName());
+            aux.setCourse(student.getCourse());
+            this.studentRepositoriry.save(aux);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Aluno não cadastrado");
+        }
+    }
+
 }
