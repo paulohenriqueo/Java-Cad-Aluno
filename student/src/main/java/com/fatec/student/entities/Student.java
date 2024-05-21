@@ -18,11 +18,8 @@ public class Student {
     @Column(length = 40)
     private String name;
 
-
     private String course;
 
-
-    
     public Integer getId() {
         return id;
     }
@@ -41,7 +38,5 @@ public class Student {
     public void setCourse(String course) {
         this.course = course;
     }
-
-    
 
 }
