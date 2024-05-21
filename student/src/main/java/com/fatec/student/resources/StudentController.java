@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.student.entities.Student;
 import com.fatec.student.resources.services.StudentService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 
 
@@ -36,6 +40,10 @@ public class StudentController {
         this.studentService.deleteStudentById(id);
     }
 
+    @PostMapping
+    public Student saveStudent(@RequestBody Student student) { 
+        return this.studentService.save(student);
+    }
     
 
 }
