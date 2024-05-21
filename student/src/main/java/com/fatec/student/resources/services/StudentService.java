@@ -34,5 +34,8 @@ public class StudentService {
             throw new EntityNotFoundException("Aluno não cadstrado");
         }
     }
+    public Student save(Student student){
+        return this.studentRepositoriry.save(student);
+    }
 
 }
