@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fatec.student.entities.Student;
 import com.fatec.student.resources.services.StudentService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
-
 
 
 @RestController
@@ -42,7 +40,12 @@ public class StudentController {
 
     @PostMapping
     public Student saveStudent(@RequestBody Student student) { 
-        return this.studentService.save(student);
+    return this.studentService.save(student);
+    }
+
+    @PutMapping("{id}")
+    public void uptade(@PathVariable int id, @RequestBody Student student){
+        this.studentService.update(id, student);
     }
     
 
