@@ -60,6 +60,7 @@ public class StudentController {
     @PutMapping("{id}")
     public ResponseEntity<Void> uptade(@PathVariable int id, @RequestBody StudentRequest student){
         this.studentService.update(id, student);;
+        
         return ResponseEntity.ok().build();
     }
     
