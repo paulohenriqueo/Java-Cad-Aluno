@@ -1,7 +1,6 @@
 package com.fatec.student.resources.services;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,19 +51,19 @@ public class StudentService {
 
     public StudentResponse save(StudentRequest request){
         Student student = StudentMapper.toEntity(request);
-        return StudentMapper.toDTO(this.studentRepositoriry.save(student));
 
-        
+        return StudentMapper.toDTO(this.studentRepositoriry.save(student));  
     }
 
-    public void update (int id, Student student){
+public void update(int id, StudentRequest request) {
         try {
             Student aux = studentRepositoriry.getReferenceById(id);
-            aux.setName(student.getName());
-            aux.setCourse(student.getCourse());
+            aux.setCourse(request.course());
+            aux.setName(request.name());
             this.studentRepositoriry.save(aux);
+
         } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("Aluno não cadastrado");
+            throw new EntityNotFoundException("Aluno inexistente no BD");
         }
     }
 
