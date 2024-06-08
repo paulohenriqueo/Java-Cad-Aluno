@@ -1,11 +1,16 @@
 package com.fatec.student.resources.services;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fatec.student.dto.StudentRequest;
+import com.fatec.student.dto.StudentResponse;
 import com.fatec.student.entities.Student;
+import com.fatec.student.mappers.StudentMapper;
 import com.fatec.student.repositories.StudentRepositoriry;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -16,14 +21,24 @@ public class StudentService {
     @Autowired
     private StudentRepositoriry studentRepositoriry;
 
-    public List<Student> getStudents(){
-        return studentRepositoriry.findAll();
-    }
+        public List<StudentResponse> getStudents(){
 
-    public Student getStudentById(int id){
-        return studentRepositoriry.findById(id).orElseThrow(
-            () -> new EntityNotFoundException("Aluno não cadstrado")
-        );
+            List <Student> students = studentRepositoriry.findAll();
+
+            return students.stream()
+                                    .map(s -> StudentMapper.toDTO(s))                
+                                    .collect(Collectors.toList());                        
+            
+        }
+        
+    public StudentResponse getStudentById(int id){
+
+        Student stundent = studentRepositoriry.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Aluno não cadastrado")
+        ); 
+
+        return StudentMapper.toDTO(stundent);
+
     }
 
     public void deleteStudentById(int id){
@@ -34,8 +49,12 @@ public class StudentService {
             throw new EntityNotFoundException("Aluno não cadstrado");
         }
     }
-    public Student save(Student student){
-        return this.studentRepositoriry.save(student);
+
+    public StudentResponse save(StudentRequest request){
+        Student student = StudentMapper.toEntity(request);
+        return StudentMapper.toDTO(this.studentRepositoriry.save(student));
+
+        
     }
 
     public void update (int id, Student student){

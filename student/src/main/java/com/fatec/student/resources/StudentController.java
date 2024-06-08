@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fatec.student.dto.StudentResponse;
 import com.fatec.student.entities.Student;
 import com.fatec.student.resources.services.StudentService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,9 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<Student>> getStudents(){
-        return ResponseEntity.ok(studentService.getStudents());
-    }
+        public ResponseEntity<List<StudentResponse>> getStudents() {
+            return ResponseEntity.ok(studentService.getStudents());
+        }
 
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentByTd(@PathVariable int id) {
