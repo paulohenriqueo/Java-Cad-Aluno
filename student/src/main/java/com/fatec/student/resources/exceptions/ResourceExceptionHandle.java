@@ -43,6 +43,10 @@ public class ResourceExceptionHandle {
         error.setTimeStamp(Instant.now());
         error.setPath(request.getRequestURI());
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        exception.getBindingResult()
+                 .getFieldErrors()
+                 .forEach( e -> error.addError(e.getDefaultMessage()));
+
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
     }
 }
