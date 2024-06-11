@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotNull;
 
 public record StudentRequest(
     
-@NotNull
+@NotNull(message = "Não pode ser nada!!")
 String name, 
 
-@NotBlank
-String course) {
-
+@NotBlank(message = "Não pode ser nada!!")
+String course
+){
 }
